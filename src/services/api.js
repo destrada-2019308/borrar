@@ -4,12 +4,24 @@ const apiClient = axios.create({
     baseURL: 'http://localhost:2656',
     timeout: 1000
 })
+apiClient.interceptors.request.use(
+    (config)=>{
+        const userDetails = localStorage.getItem('token')
+        if(userDetails){
+            const token = JSON.parse(userDetails)
+            config.headers.Authorization = `${token}`
+            console.log(token)
+        }
+        return config
+    },
+    (err)=> Promise.reject(err)
+)
 
 //Aqui necesitamos exportar métodos del backend hacia el front
 export const testConnection = async () => {
     try {
       // Realiza una solicitud GET de prueba al servidor backend
-      const response = await axios.get("http://localhost:2656/hotel/getHotels");
+      return  await axios.get("http://localhost:2656/hotel/getHotels");
       
       // Si la solicitud tiene éxito, devuelve true
       return true;
@@ -19,7 +31,7 @@ export const testConnection = async () => {
     }
   };
 
-  apiClient.interceptors.request.use(
+ /* apiClient.interceptors.request.use(
     (config) => {
         const userDetails = localStorage.getItem('user')
         if(userDetails){
@@ -29,7 +41,7 @@ export const testConnection = async () => {
         return config
     },
     (err) => Promise.reject(err)
-)
+)*/
 
 // //////////////////////////////////////////////////// //
 // ///////////  Métodos Post UwU ///////////////////// //
