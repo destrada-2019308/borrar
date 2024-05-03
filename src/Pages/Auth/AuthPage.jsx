@@ -12,7 +12,7 @@ import './AuthPage.css'
 export const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(false)
 
-  useEffect(() => {
+ /* useEffect(() => {
     const checkConnection = async () => {
       try {
         const isConnected = await testConnection();
@@ -23,7 +23,7 @@ export const AuthPage = () => {
     };
 
     checkConnection();
-  }, []); 
+  }, []); */
 
 
   const handleAuthPage = ()=>{
