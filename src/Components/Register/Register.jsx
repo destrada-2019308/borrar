@@ -136,7 +136,7 @@ export const Register = ({ switchAuthAndler }) => {
   }
 
   const handleRegister = async (e) => {
-    //e.preventDefault();
+    e.preventDefault();
     register(
       formData.nameUser.value,
       formData.surname.value,

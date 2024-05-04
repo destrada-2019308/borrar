@@ -5,46 +5,42 @@ import { Register } from "../../Components/Register/Register.jsx";
 import { useRoutes } from "react-router-dom";
 import { testConnection } from "../../services/api.js"
 import { useState, useEffect } from "react"
-//import { routes } from ".routes.jsx"
 
 import './AuthPage.css'
 
 export const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(false)
 
- /* useEffect(() => {
-    const checkConnection = async () => {
-      try {
-        const isConnected = await testConnection();
-        console.log("Conexión exitosa:", isConnected);
-      } catch (error) {
-        console.error("No se pudo conectar al servidor", error);
-      }
-    };
+  /* useEffect(() => {
+     const checkConnection = async () => {
+       try {
+         const isConnected = await testConnection();
+         console.log("Conexión exitosa:", isConnected);
+       } catch (error) {
+         console.error("No se pudo conectar al servidor", error);
+       }
+     };
+ 
+     checkConnection();
+   }, []); */
 
-    checkConnection();
-  }, []); */
 
-
-  const handleAuthPage = ()=>{
-    setIsLogin((prev)=> !prev)
+  const handleAuthPage = () => {
+    setIsLogin((prev) => !prev)
   }
 
 
-  
+
   return (
     <div className="auth-container">
-    {
-      isLogin ? (
-        <Login switchAuthAndler={handleAuthPage} />
-      ) : (
-        <Register switchAuthAndler={handleAuthPage}/>
-      )
-    
-    
-   }
- 
+      {
+        isLogin ? (
+          <Register switchAuthAndler={handleAuthPage} />
+        ) : (
+          <Login switchAuthAndler={handleAuthPage} />
+        )
+      }
     </div>
 
-)
+  )
 }

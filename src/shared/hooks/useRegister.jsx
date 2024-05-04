@@ -43,8 +43,11 @@ export const useRegister = () => {
                     response?.err?.data?.msg ||
                     'Error general al intentar registrar el usuario. Intenta de nuevo.'
                 )
-        }
-        //navigate('/register')
+        }else {
+          // Registro exitoso
+          toast.success('¡Usuario registrado exitosamente!');
+            //navigate('/register')
+      }
     }
   return {
     register, 
