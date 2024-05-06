@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import {HomeAdminHotel} from '../Pages/HomePages/HomeAdminHotel.jsx'
 import {HomeAdminApp} from '../Pages/HomePages/HomeAdminApp.jsx'
-import {HomeClient} from '../Pages/HomePages/HomeClient.jsx'
+import {HomeClient} from '../Pages/HomePages/ClientPage/HomeClient.jsx'
 
 export const ContentRole = () => {
 
