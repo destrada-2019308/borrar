@@ -17,19 +17,7 @@ apiClient.interceptors.request.use(
     (err)=> Promise.reject(err)
 )
 
-//Aqui necesitamos exportar métodos del backend hacia el front
-export const testConnection = async () => {
-    try {
-      // Realiza una solicitud GET de prueba al servidor backend
-      return  await axios.get("http://localhost:2656/hotel/getHotels");
-      
-      // Si la solicitud tiene éxito, devuelve true
-      return true;
-    } catch (error) {
-      // Si hay algún error, devuelve false
-      return false;
-    }
-  };
+
 
  /* apiClient.interceptors.request.use(
     (config) => {
@@ -69,3 +57,76 @@ export const registerRequest = async(user)=>{
         }
     }
 }
+
+export const getRoomsRequest = async()=>{
+    try{
+        return await apiClient.get('/room/findAvailableRoomsMain')
+    }catch (err) {
+        error: true,
+        err
+    }
+}
+
+export const getHotelsRequest = async()=>{
+    try {
+        return await apiClient.get('/hotel/getHotels')
+    } catch (error) {
+        error: true,
+        err
+    }
+}
+
+export const getCategoryRoomsRequest = async()=>{
+    try {
+        return await apiClient.get('/categoryRoom/getCategory')
+    } catch (error) {
+        error: true,
+        err
+    }
+}
+
+//Consulta para la busqueda
+export const searchRequest = async(information)=>{
+    try {        
+        return await apiClient.post('/room/searchRooms', information)
+    } catch (err) {
+        return {
+            error: true,
+            err
+        }
+    }
+}
+
+//Consulta para la reserva de hoteles 
+export const reserveRequest = async(reserve)=>{
+    try {        
+        return await apiClient.post('/reservation/add', reserve)
+    } catch (err) {
+        return {
+            error: true,
+            err
+        }
+    }
+}
+
+//Para ver las reservas
+export const getreserveRequest = async()=>{
+    try {        
+        return await apiClient.get('/reservation/getReservationMyUser')
+    } catch (err) {
+        return {
+            error: true,
+            err
+        }
+    }
+}
+
+export const getRoomsByHotel = async (hotelId) => {
+    try {
+        const response = await axios.get(`/RoomsByIdHotel/${hotelId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error al obtener las habitaciones:', error);
+        throw error;
+    }
+};

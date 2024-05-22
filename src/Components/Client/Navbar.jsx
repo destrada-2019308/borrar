@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { useState } from "react";
+import { useUserDetails } from '../../shared/hooks/Profile/useUserDetails';
+import  logo  from "../../assets/img/logo.png"
+import { useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
+    /* Logo de Zaru*/
+    const navigate = useNavigate()
+    
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [profileDropdownVisible, setProfileDropdownVisible] = useState(false);
 
@@ -21,34 +27,55 @@ export const Navbar = () => {
         setProfileDropdownVisible(false);
     };
 
+    /* Logout */
+    const handleLogout = () =>{
+        logoutSys();
+    }
+
+    const goToPage = (ruta)=>{
+        navigate(ruta)
+    }
+
     return (
         <StyledNavbar>
             <ul className='navbar'>
-                <li className='ocultarElementos'><a href="/home/zaru/rooms">Rooms</a></li>
-                <li className='ocultarElementos'><a href="#">Contact</a></li>
-                <li className='ocultarElementos'><a href="/home/zaru/hotels">Hotels</a></li>
-                <li className='ocultarElementos'><a href="#">Services</a></li>
-                <li className='perfil' onClick={toggleProfileDropdown} onMouseLeave={hideProfileDropdown}>
+            <li onClick={() => goToPage('/home/zaru/home')} className='logo-container'>
+                    <a> <img src={logo} alt="Logo" width={50}  /> </a>
+                </li> 
+                <li onClick={() => goToPage('/home/zaru/rooms')} className='ocultarElementos'>
+                    <a href="#">Rooms</a>
+                </li>
+                <li onClick={() => goToPage('/home/zaru/reservas')} className='ocultarElementos'>
+                    <a href="#">Reservations</a>
+                </li>
+                <li onClick={() => goToPage('/home/zaru/hotels')} className='ocultarElementos'>
+                    <a href="#">Hotels</a>
+                </li>
+                <li onClick={() => goToPage('/home/zaru/services')} className='ocultarElementos'>
+                    <a href="#">Tours</a>
+                </li>
+                <li  className='perfil' onClick={toggleProfileDropdown} >
                     <a href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                             <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z"/>
                         </svg>
                     </a>
-                    <ul className={`perfil-dropdown ${profileDropdownVisible ? 'visible' : ''}`}>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Logout</a></li>
+                    <ul  className={`perfil-dropdown ${profileDropdownVisible ? 'visible' : ''}`}>
+                        <li onClick={() => goToPage('/home/zaru/profile')}><a href="#">Profile</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li onClick={handleLogout}><a href="/">Logout</a></li>
                     </ul>
                 </li>
                 <li className='boton'><a href="#" onClick={toggleSidebar}><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="28"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
             </ul>
+            { /* Aqui es el sidebar */}
             <ul className={`sidebar ${sidebarVisible ? 'visible' : ''}`}>
                 <li><a href="#" onClick={hideSidebar}><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
-                <li><a href="#">Rooms</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Hotels</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Login</a></li>
+                <li onClick={() => goToPage('/home/zaru/rooms')}><a href="#">Rooms</a></li>
+                <li onClick={() => goToPage('/home/zaru/reservas')}><a href="#">Reservations</a></li>
+                <li onClick={() => goToPage('/home/zaru/hotels')}><a href="#">Hotels</a></li>
+                <li onClick={() => goToPage('/home/zaru/services')}><a href="#">Services</a></li>
+                <li onClick={handleLogout}><a href="/">Logout</a></li>
             </ul>
         </StyledNavbar>
     )
@@ -57,42 +84,42 @@ export const Navbar = () => {
 export const StyledNavbar = styled.header`
     top: 0;
     position: absolute; 
+    z-index: 2;
     width: 100%;
     background-color: white;
     right: 0;
-    .navbar {        
-        list-style: none;        
-        display: flex;
-        justify-content: flex-end;
-        margin: 0;
-        height: 5vh;
-        
-        
-    }
 
-    .navbar li {       
-        display: flex;
-        
-        right: 0;
-    }
+    .navbar {
+    list-style: none;        
+    display: flex;        
+    margin: 0;
+    height: 5vh;
+}
+
+.navbar li {       
+    height: 100%;
+    align-items: center;
     
-    .navbar a {    
-        padding: 0 15px; 
-        text-decoration: none;
-        color: black;
-        display: flex;
-        align-items: center;     
-        //separar elementos
-        width: 8vh;
-        //centrar elementos
-        justify-content: center;
-    }
+}
+
+.navbar a {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    text-decoration: none;
+    color: black;
+    height: 100%;
+    width: 100%; /* Establece el ancho de los elementos <a> al 100% */
+}
 
     .navbar a:hover {
         background-color: #f0f0f0;
     }
     
-
+    .logo-container {
+        
+        margin-right: auto; /* Mueve el logo a la izquierda */
+    }
     /* Sidebar */
     .sidebar {
         position: fixed;
@@ -137,6 +164,10 @@ export const StyledNavbar = styled.header`
     //ocultar boton
     .navbar .boton {
         display: none;
+    }
+
+    .logo-container a:hover {
+        background-color: transparent; /* Anula el efecto hover */
     }
 
     /* Dropdown para el perfil */

@@ -1,12 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
 
 import { BrowserRouter } from 'react-router-dom'
 import { useRoutes } from 'react-router-dom'
 import { routes } from './routes'
 import { Toaster } from 'react-hot-toast'
+import 'bootstrap/dist/css/bootstrap.min.css'
+//Importe Bootstrap
+
+
 
 
 export const Main = () => {
